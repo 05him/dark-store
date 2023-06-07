@@ -1,0 +1,86 @@
+nav{
+    /* border:1px solid red; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 3rem;
+    position: relative;
+    /* box-shadow: 1px 0px 5px var(--primary-btn-color); */
+}
+
+.nav-first-section, .nav-last-section{
+    display: flex;
+    /* border:1px solid green; */
+}
+
+.nav-first-section, .nav-last-section{
+    gap:2rem;
+    font-size:20px;
+}
+
+.nav-first-section button, .nav-last-section button{
+    font-size:20px;
+    padding: 0.4em 1.2em;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.btn-login{
+    border:1px solid white;
+    color: var(--primary-font-color);
+    background-color: var(--primary-btn-color);
+}
+
+.btn-signup{
+    background-color: transparent;
+    border:1px solid var(--secondary-btn-color);
+    color: var(--secondary-btn-color);
+}
+
+.nav-last-section button{
+    padding: 0.2em;
+    background-color: transparent;
+    color: var(--primary-font-color);
+    border: none;
+}
+
+.search-bar-container{
+    position: absolute;
+    top:0;
+    right:0;
+    left:0;
+    bottom: 0;
+    background-color: var(--primary-bg-color);
+    padding: 0.7rem 3rem;
+}
+
+.search-bar-container input {
+    font-size: 1.5em;
+    width: 80%;
+    padding: 0.2em 0.7em;
+    border: unset;
+    background-color: transparent;
+    border-left: 1px solid gray;
+    border-bottom: 1px solid gray;
+    color: var(--primary-font-color);
+}
+
+.search-bar-container input:focus{
+    outline: none;
+    border-width: 2px;
+    border-color: var(--secondary-bg-color)
+}
+
+.search-bar-cross-btn{
+    font-size: 2em;
+    padding: 0.1em 0.3em;
+    border-radius: 50%;
+    font-weight: 600;
+    position: absolute;
+    top:9%;
+    right:5%;
+    color: var(--secondary-btn-color);
+    background-color: transparent;
+    border: 1px solid currentColor;
+}
+

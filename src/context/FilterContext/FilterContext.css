@@ -1,0 +1,43 @@
+.filter-provider-main{
+    display: flex;
+}
+
+.filter-provider-main aside{
+    text-transform: capitalize;
+    padding: 0.5em;
+    flex-basis:20%;
+}
+
+.filter-provider-main label{
+    margin: 0.2em;
+    display: block;
+}
+
+.filters-heading{
+    display: inline-block;
+    font-size: 1.5em;
+    margin-bottom:1em;
+}
+
+.clear-all-btn{
+    margin-left: 3em;
+    display: inline-block;
+    padding: 0.2em 0.3em;
+    background: var(--primary-btn-color);
+    border-radius:5px;
+    border: none;
+}
+
+.filter-section{
+    margin: 1em;
+}
+
+.filter-section-heading{
+    font-size:1.2em;
+    font-weight: 500;
+    margin: 0.3em
+}
+
+.flex-basis-for-category{
+    flex-basis: 75% ;
+}

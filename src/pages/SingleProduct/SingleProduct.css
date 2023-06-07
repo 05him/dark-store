@@ -1,0 +1,83 @@
+.single-product-section{
+    
+    display: flex;
+    width:80%;
+    margin: 3rem auto;
+    gap: 10em;
+
+    .title{
+        font-size: 2.5em;
+        text-transform: capitalize; 
+        border: none;
+        font-weight: 500;
+        /* margin:0.5em 0; */
+    }
+
+    .final-price{
+        font-size:2em;
+        font-weight:600;
+    }
+
+    .initial-price{
+        text-decoration: line-through;
+        color: var(--secondary-btn-color);
+        font-size:1.2em;
+    }
+
+    .discount{
+        padding-left: 0.75em;
+        font-size:1.4em;
+        color:var(--secondary-btn-color);
+        font-weight: 600;
+    }
+
+    .tags-container, .sub-category-container, .description-container, .quantity-container, .category-name-container, .rating{
+        margin: 0.8em 0;
+    }
+
+    .tag-heading, .sub-category-heading, .description-heading, .quantity-heading, .category-name-heading{
+        font-size:1.1em;
+        font-weight:500
+    }
+
+    .tag-name, .sub-category-name, .category-name{
+        padding: 0.1em 0.5em;
+        border-radius:5px;
+        margin: 0.4em;
+        text-transform: capitalize;
+    }
+
+    .tag-name{
+        background-color: var(--primary-btn-color);
+    }
+
+    .sub-category-name{
+        border:2px solid var(--secondary-btn-color);
+        /* background-color: var(--secondary-btn-color); */
+    }
+    
+    .description-text{
+        font-weight:300;
+    }
+
+    .btn-container button {
+        padding: 0.5em 1em;
+        width:70%;
+        font-size:1.1em;
+        font-weight:500;
+        border-radius:10px;
+        background-color: var(--primary-btn-color);
+        border:none;
+        color: var(--primary-font-color)
+    }
+
+    .rating{
+        position: static;
+        border:2px solid var(--secondary-btn-color);
+        width: fit-content;
+    }
+
+    .card-data{
+        position: relative;
+    }
+}

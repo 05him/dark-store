@@ -1,0 +1,20 @@
+.logo{
+    display: flex;
+    gap:1rem;
+    border: 2px solid var(--primary-btn-color);
+    padding: 1.55rem;
+    /* border-radius:20px; */
+    cursor: pointer;
+    border-radius: 28% 74% 47% 79% / 100% 24% 68% 18% 
+}
+
+.logo img{
+    width:4rem;
+}
+
+.logo p{
+    color: var(--primary-btn-color);
+    font-size: 3rem;
+    align-items: center;
+    font-family: "Shizuru", cursive;
+}

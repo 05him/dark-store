@@ -1,0 +1,9 @@
+.address-list{
+ border : 2px solid white;
+}
+
+.address-list li{
+    margin: 1rem;
+    padding: 1rem; 
+    border: 1px solid white;
+}

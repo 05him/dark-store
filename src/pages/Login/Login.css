@@ -1,0 +1,69 @@
+.login-signup-area{
+    border:2px solid var(--secondary-btn-color);
+    width:25%;
+    margin:auto;
+    padding: 1em;
+    border-radius: 10px;
+}
+
+.login-signup-area label, .login-signup-area input{
+    display: block;
+}
+
+.login-signup-area label{
+    font-size: 1.2em;
+    font-weight: 500;
+    margin: 0.5em 0
+}
+
+.login-signup-area input{
+    color: var(--primary-font-color);
+    width: 80%;
+    border-radius:5px;
+    background: transparent;
+    outline: none;
+    border: 1px solid var(--primary-btn-color);
+    padding: 0.2em 0.4em;
+    margin: 0.1em;
+}
+    
+.login-signup-area .login-api-btn, .login-signup-area .test-login-btn, .create-account-btn{
+    width: 80%;
+    display: block;
+    margin: 0.5em auto;
+    font-size: 1.1em;
+    background: var(--primary-btn-color);
+    color: var(--primary-font-color);
+    border-radius: 5px;
+    padding: 0.1em 0.3em;
+}
+
+.login-signup-area .login-api-btn, .create-account-btn{
+    margin-top: 1.5em;
+}
+
+.signup-msg{
+    width: 80%;
+    margin:0.5em auto;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.signup-msg button{
+    background-color: transparent;
+    border:none;
+    outline: none;
+    color: var(--secondary-btn-color);
+    font-size: 1.1em;
+}
+
+.password-label{
+    position: relative;
+}
+
+.show-hide-icon{
+    right:20%;
+    top:49%;
+    position: absolute;
+    cursor: pointer;
+}

@@ -1,0 +1,125 @@
+.top-category-section{
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    width:65%;
+    margin: 1rem auto;
+}
+
+.show-category-box{
+    overflow: hidden;
+}
+
+.show-category-box-hidden{
+    margin:4rem 0;
+}
+
+.show-category-box-hidden{
+    display: flex;
+    animation: scroll-left-right 4s linear infinite;
+}
+
+.show-category-box-hidden:hover{
+    animation-play-state: paused;
+}
+
+@keyframes scroll-left-right {
+    0%,15%{
+        transform: translateX(0);
+    }
+    15%,30%{
+        transform: translateX(-5%);
+    }
+    30%,45%{
+        transform: translateX(-10%);
+    }
+    45%,60%{
+        transform: translateX(-5%)
+    }
+    60%,75%{
+        transform: translateX(0%);
+    }
+    75%,90%{
+        transform: translateX(5%);
+    }
+    90%,100%{
+        transform: translateX(0);
+    }
+}
+
+
+.category-icon-container{
+    margin:1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap:1rem;
+}
+
+.category-icon-container:hover{
+    transform: scale(1.1);
+}
+
+.category-icon-container img{
+    width:190px;
+    border-radius: 50%;
+}
+
+.category-icon-container span{
+    font-size:20px;
+}
+
+.best-seller-container{
+    margin: 3rem 0;
+}
+
+.category-container{
+    position: relative;
+    padding:0.5em;
+}
+
+.category-name{
+    text-transform: capitalize;
+    cursor: pointer;
+    padding:0.5em;
+}
+
+ .sub-categories-list{
+    display: none;
+    position: absolute;
+    bottom:0px;
+    list-style: none;
+    transform: translateY(100%);
+    z-index: 1;
+    background-color: var(--primary-bg-color);
+}
+
+.sub-categories-list li{
+    width: max-content;
+    text-transform: capitalize;
+}
+
+.sub-categories-list li a{
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    padding: 0.5em 0.75em;
+}
+
+.category-container:hover .sub-categories-list{
+    display: block;
+}
+
+.view-all-btn{
+    margin: auto;
+    display: block;
+    font-size: 1.2em;
+    font-weight: 500;
+    padding: 0.5em 1.5em;
+    border-radius: 7px;
+    background-color: transparent;
+    border: 2px solid var(--secondary-btn-color);
+    color: var(--secondary-btn-color)
+}
