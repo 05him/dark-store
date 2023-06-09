@@ -28,7 +28,7 @@ export const Login = () => {
         setToast('LoggedIn Successfully', 'success')
         handleUserLogin(testLoginCall.data.foundUser, testLoginCall.data.encodedToken);
         setTimeout(()=> setLoader(true, 'Redirecting....') , 2000 )
-        setTimeout(()=> navigate('/'), 4000 )
+        setTimeout(()=> navigate(location?.state?.pathname), 4000 )
         setTimeout(()=>setLoader(false), 4000 )
         }
         catch(eror){
@@ -50,7 +50,7 @@ export const Login = () => {
                 setToast('LoggedIn Successfully', 'success')
             handleUserLogin(loginCall.data.foundUser, loginCall.data.encodedToken);
             setTimeout(()=> setLoader(true, 'Redirecting....') , 2000 )
-            setTimeout(()=> navigate('/'), 4000 )
+            setTimeout(()=> navigate(location?.state?.pathname), 4000 )
             setTimeout(()=>setLoader(false), 4000 )
             }
         }

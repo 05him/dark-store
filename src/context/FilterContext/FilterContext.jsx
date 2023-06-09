@@ -2,7 +2,6 @@ import { useContext, createContext, useState } from 'react';
 
 import { useFilterReducer } from './filterReducer';
 import { useToastAndLoader } from '../ToastAndLoaderContext/ToastAndLoaderContext';
-import { ShopAll } from '../../pages/ShopAll/ShopAll';
 
 export const FilterContext = createContext();
 
@@ -24,6 +23,7 @@ export const FilterProvider = ({ children, showSubCategory, subCategoryArray, is
         filterdiv.forEach( e => e.checked=false );
 
         handleRemoveFilters();
+        setPriceValue(999);
     }
 
     const handlePrice = e => {
@@ -37,7 +37,7 @@ export const FilterProvider = ({ children, showSubCategory, subCategoryArray, is
 
     if( !isLoading ){
 
-        return <FilterContext.Provider value={{ filterData, handleFilterChange  }}>
+        return <FilterContext.Provider value={{ filterData, handleFilterChange }}>
             <main className='filter-provider-main'>
             <aside className='filter-container' >
                 <div className='filters-section' > <span className='filters-heading' > Filters </span> <button onClick={ removeFilters } className='clear-all-btn' > Clear All </button> <br/> </div>

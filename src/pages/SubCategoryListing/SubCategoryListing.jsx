@@ -29,11 +29,13 @@ export const SubCategoryListing = () => {
     const subCategory = rawSubCategory.split('=')[1];
 
     const { shuffleArray } = useProducts();
-    const { isLoading } = useToastAndLoader();
+    const { isLoading, setToast, setLoader } = useToastAndLoader();
 
     const [ products, setProducts ] = useState([])
 
     const fetchProductsOfGivenCategory = async () => {
+        setLoader(true)
+        try{
         const data = await axios.get('/api/products');
         const tempdata = data.data.products.filter( prod => {
             if( subCategory==='null' ){
@@ -55,6 +57,13 @@ export const SubCategoryListing = () => {
         });
         shuffleArray(tempdata);
         setProducts(tempdata);
+    }
+    catch(eror){
+        alert(eror)
+    }
+    finally{
+        setLoader(false);
+    }
     }
 
     useEffect( ()=>{

@@ -31,7 +31,7 @@ export const SignUp = () => {
             if( signInCall.status===201 ){
                 setToast('account created Successfully, you can now login', 'success')
             setTimeout(()=> setLoader(true, 'Redirecting....') , 2000 )
-            setTimeout(()=> navigate('/'), 4000 )
+            setTimeout(()=> navigate(location?.state?.pathname), 4000 )
             setTimeout(()=>setLoader(false), 4000 )
             }
         }

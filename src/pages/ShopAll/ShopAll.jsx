@@ -9,7 +9,7 @@ import { Heading } from "../components/Heading/Heading";
 import { FilterProvider} from "../../context/FilterContext/FilterContext";
 import { FilteredProducts } from "../components/FilteredProducts/FilteredProducts";
 import { useToastAndLoader } from "../../context/ToastAndLoaderContext/ToastAndLoaderContext";
-import { useFilterReducer } from "../../context/FilterContext/filterReducer";
+import { useFilter } from "../../context/FilterContext/FilterContext";
 import { Footer } from "../components/Footer/Footer";
 
 // const ProductsData = ({productsArray, categoryName }) => {
@@ -24,35 +24,25 @@ import { Footer } from "../components/Footer/Footer";
 
 
 export const ShopAll = () => {
-    
+
     const { shuffleArray } = useProducts();
     const { isLoading, setLoader } = useToastAndLoader();
     const { search } = useParams();
-    const { handleAddSearch } = useFilterReducer();
 
     const searchText = search.replaceAll('%20',' ');
 
     const [ products, setProducts ] = useState([]);
     const [ categoryList, setCategoryList ] = useState([]);
 
-    const fetchCategory = async() => {
+    const fetchCategoryAndProducts = async() => {
         setLoader(true);
         try{
             const categoryCall = await axios.get('/api/categories');
             setCategoryList(categoryCall.data.categories);
-        }
-        catch(eror){
-            alert(eror);
-        }
-    }
-
-    const fetchProducts = async()=> {
-        try{
-        const productCall = await axios.get('/api/products');
-        const tempData = productCall.data.products;
-        shuffleArray(tempData);
-        setProducts(tempData);
-        handleAddSearch(searchText);
+            const productCall = await axios.get('/api/products');
+            const tempData = productCall.data.products;
+            shuffleArray(tempData);
+            setProducts(tempData);
         }
         catch(eror){
             alert(eror);
@@ -61,10 +51,10 @@ export const ShopAll = () => {
             setLoader(false);
         }
     }
+    
 
     useEffect( ()=>{
-        fetchCategory();
-        fetchProducts();
+        fetchCategoryAndProducts();
     },[] )
 
     return <>
@@ -75,7 +65,7 @@ export const ShopAll = () => {
         <section className="flex-basis-for-category">
         <Heading title={'Shop All'} />
             <CardsContainer>
-                <FilteredProducts givenProducts={products} />
+                <FilteredProducts givenProducts={products} searchedText={searchText} />
             </CardsContainer>
         </section> }
     </FilterProvider>

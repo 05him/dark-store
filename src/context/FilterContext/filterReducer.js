@@ -14,7 +14,7 @@ const handleFilterData = ( data, action ) => {
 
         case 'removeSubCategory' : return({ ...data, selecetdSubCategories: data.selecetdSubCategories.filter( subCategory => subCategory!==action.value ) });
 
-        case 'removeFilters' : return({ ...data, filterByRating: false, filterByPrice: false, filterBestSeller: false, filterOnSale: false, filterNew: false, sortHighToLow: false, sortLowToHigh: false, selecetdSubCategories: [], showOutOfStock: false, filterByDiscount: false, minPrice: 0, maxPrice: 0, selectedCategories:[], subCategoriesOfSelection: [], searchText: false });
+        case 'removeFilters' : return({ ...data,  filterByRating: false, filterByPrice: false, filterBestSeller: false, filterOnSale: false, filterNew: false, sortHighToLow: false, sortLowToHigh: false, selecetdSubCategories: [], showOutOfStock: false, filterByDiscount: false, minPrice: 0, maxPrice: 0, selectedCategories:[], subCategoriesOfSelection: [] });
 
         case 'manageOutOfStock' : return({ ...data, showOutOfStock: !data.showOutOfStock });
 
@@ -22,24 +22,17 @@ const handleFilterData = ( data, action ) => {
 
         case 'removeCategory' : return({ ...data, selectedCategories: data.selectedCategories.filter( category => category!==action.value ) }) ;
 
-        case 'addSearch' :{
-            // console.log(action);
-             return({ ...data, searchText: 'cover' });
-        }
-
         default: throw Error('eroor in ', action.type)
 
     }
 }
 
 export const useFilterReducer = () => {
-    const [ filterData, updateFilterData ] = useReducer(handleFilterData, { filterByRating: false, filterByPrice: false, filterBestSeller: false, filterOnSale: false, filterNew: false, sortHighToLow: false, sortLowToHigh: false, selecetdSubCategories: [], showOutOfStock: false, filterByDiscount: false, minPrice: 0, maxPrice: 0, selectedCategories:[], subCategoriesOfSelection: [], searchText: '' });
+    const [ filterData, updateFilterData ] = useReducer(handleFilterData, { filterByRating: false, filterByPrice: false, filterBestSeller: false, filterOnSale: false, filterNew: false, sortHighToLow: false, sortLowToHigh: false, selecetdSubCategories: [], showOutOfStock: false, filterByDiscount: false, minPrice: 0, maxPrice: 0, selectedCategories:[], subCategoriesOfSelection: [] });
 
     const handleFilterChange = (filterType, value) =>  { 
         updateFilterData({ type: 'setFilter', filterName: filterType, payload: value });
     }
-
-    console.log(filterData);
 
     const handleSort = sortName => updateFilterData({ type: sortName });
     const handleRemoveSort = sortName => updateFilterData({ type: 'removeSort', sortName: sortName });
@@ -49,9 +42,7 @@ export const useFilterReducer = () => {
     const handleOutOfStock = () => updateFilterData({ type: 'manageOutOfStock' });
     const handleAddCategory = category => updateFilterData({ type: 'addCategory', newCategory: category });
     const handleRemoveCategory = category => updateFilterData({ type: 'removeCategory', value: category });
-    const handleAddSearch = text =>{
-         updateFilterData({ type: 'addSearch', value: text });
-    }
-    return ( {filterData, handleFilterChange, handleSort, handleAddSubCategory, handleRemoveSubCategory, handleRemoveFilters, handleRemoveSort, handleOutOfStock, handleAddCategory, handleRemoveCategory, handleAddSearch });
+  
+    return ( {filterData, handleFilterChange, handleSort, handleAddSubCategory, handleRemoveSubCategory, handleRemoveFilters, handleRemoveSort, handleOutOfStock, handleAddCategory, handleRemoveCategory });
 }
 

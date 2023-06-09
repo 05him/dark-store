@@ -91,31 +91,31 @@ export const Home = () => {
     const ShowCategoryBox = () => {
         return <section className="show-category-box" >
             <div className="show-category-box-hidden" >
-            <div className="category-icon-container"> 
+            <div className="category-icon-container" onClick={ () => navigate('/category/mens') } > 
                 <img src={mensIcon} alt='mens icon' />
                 <span> Mens </span>
             </div>
-            <div className="category-icon-container" >
+            <div className="category-icon-container" onClick={ () => navigate('/category/womens') } >
                 <img src={womensIcon} alt='women icon' />
                 <span> Womens </span>
             </div>
-            <div className="category-icon-container" >
+            <div className="category-icon-container" onClick={ () => navigate('/category/kids') } >
                 <img src={kidsIcon} alt='kids icon' />
                 <span> Kids </span>
             </div>
-            <div className="category-icon-container" >
+            <div className="category-icon-container" onClick={ () => navigate('/category/best sellers/sub-category=null') } >
                 <img src={bestSellersIcon} alt='best seller icon' />
                 <span> Best Sellers </span>
             </div>
-            <div className="category-icon-container" >
+            <div className="category-icon-container" onClick={ () => navigate('/category/on sale/sub-category=null') } >
                 <img src={saleIcon} alt='sale icon' />
                 <span> On Sale </span>
             </div>
-            <div className="category-icon-container" >
+            <div className="category-icon-container" onClick={ () => navigate('/category/is new/sub-category=null') } >
                 <img src={newLaunchIcon} alt='new launch icon' />
                 <span> New Launch </span>
             </div>
-            <div className="category-icon-container" >
+            <div className="category-icon-container" onClick={ () => navigate('/category/accessories') } >
                 <img src={accessoriesIcon} alt='accessories icon' />
                 <span> Accessories </span>
             </div>
