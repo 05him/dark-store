@@ -44,6 +44,7 @@
 
 .card-img .thumbnail{
   width: 100%;
+  height: 100%;
 }
 
 .favourities-container{
@@ -116,6 +117,7 @@
 
 .card-box-horizontal .card-img {
   position: relative;
+  height: 100%;
   border-radius: 15px 0 0 15px;
   padding: 0.5em;
 }
@@ -135,7 +137,7 @@
 
 .card-box-horizontal .card-text {
   width: 100%;
-  height: 15rem;
+  /* height: 15rem; */
   margin-top: 0;
   margin-left: 0.5rem;
   flex-direction: column;

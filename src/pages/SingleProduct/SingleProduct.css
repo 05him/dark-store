@@ -47,6 +47,10 @@
         text-transform: capitalize;
     }
 
+    .category-name:hover{
+        text-decoration: underline;
+    }
+
     .tag-name{
         background-color: var(--primary-btn-color);
     }

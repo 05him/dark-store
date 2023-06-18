@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import star from '../../../assets/complete-star.svg';
@@ -13,31 +12,23 @@ export const HorizontalCard = ({ productObj, showBestSeller, showOnSale, redirec
 
     const { _id, title, price, description, thumbnail, discount, rating, best_seller, on_sale, stock_quantity, qty=1 } = productObj;
 
-    const navigate = useNavigate();
     const { calculateFinalPrice } = useProducts();
-    const { userData, updateCartHandler, favouritiesHandler, checkInFavourite} = useAuth();
+    const { updateCartHandler, handleAddToFavourities, checkInFavourite, apiHeader, navigate} = useAuth();
     const { setToast } = useToastAndLoader();
-    const { isLoggedIn, authToken } = userData;
 
-    const navigateToProduct = () => navigate(`/product/${title}/${_id}`);
-
-    console.log(userData);
+    const navigateToProduct = () => navigate(`/product/${productObj.title}/${productObj._id}`);
 
     const removeFromCart = async() => {
-        const removeCall = await axios.delete(`/api/user/cart/${_id}`, { headers: { 'authorization' : authToken } });
+        const removeCall = await axios.delete(`/api/user/cart/${_id}`, apiHeader );
         updateCartHandler(removeCall.data.cart);
         setToast(`${title} removed from cart`, 'success');
-    }
-
-    const handleAddToFavourities = () => {
-            favouritiesHandler(productObj);
     }
 
     const handleIncrement = async() => {
         if( qty === stock_quantity ){
             setToast(`only ${stock_quantity} piece available`, 'warning');
         }else{
-            const incrementCall = await axios.post(`/api/user/cart/${_id}`, { action: { 'type' : 'increment' }  } ,{ headers: { 'authorization': authToken } });
+            const incrementCall = await axios.post(`/api/user/cart/${_id}`, { action: { 'type' : 'increment' }  } , apiHeader);
             updateCartHandler(incrementCall.data.cart);
             setToast('Quantity updated successfully','success');
         }
@@ -47,7 +38,7 @@ export const HorizontalCard = ({ productObj, showBestSeller, showOnSale, redirec
         if(qty===1){
             setToast('min order value is 1','warning');
         }else{
-            const decrementCall = await axios.post(`/api/user/cart/${_id}`, { action: { 'type' : 'decrement' }  } ,{ headers: { 'authorization': authToken } });
+            const decrementCall = await axios.post(`/api/user/cart/${_id}`, { action: { 'type' : 'decrement' }  } , apiHeader);
             updateCartHandler(decrementCall.data.cart);
             setToast('quantity updated successfully', 'success');
         }
@@ -64,7 +55,7 @@ export const HorizontalCard = ({ productObj, showBestSeller, showOnSale, redirec
                     { showBestSeller && best_seller && <div className='best-seller' > Best Seller </div> }
                 </div>
 
-                <div className='favourities-container' onClick={handleAddToFavourities} style={{ background: checkInFavourite(_id) ? 'red' : 'white' }} > <img className="card-badge-top-right" src={ checkInFavourite(_id) ? whiteHeart : blackHeart } alt='favourities' />  </div>
+                <div className='favourities-container' onClick={ () =>  handleAddToFavourities(productObj)} style={{ background: checkInFavourite(_id) ? 'red' : 'white' }} > <img className="card-badge-top-right" src={ checkInFavourite(_id) ? whiteHeart : blackHeart } alt='favourities' />  </div>
 
                 <div className="card-text" >
                     <h3 className="card-title" onClick={navigateToProduct} > {title} </h3>

@@ -1,18 +1,16 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Logo } from '../Logo/Logo';
 import { useAuth } from '../../../context/AuthContext/AuthContext';
 import { useToastAndLoader } from '../../../context/ToastAndLoaderContext/ToastAndLoaderContext';
+import { tr } from '@faker-js/faker';
 
 export const Navbar = () => {
 
-    const navigate = useNavigate();
-    const location = useLocation();
     const { setToast } = useToastAndLoader();
-    const { userData: { isLoggedIn }, handleLogout } = useAuth();
+    const { userData: { isLoggedIn, userCart, userFavouritesList }, handleLogout, navigate, location } = useAuth();
     const [ searchBarDisplay, setSearchBarDisplay ] = useState('none');
-
+    const [ showNavbar, setShowNavbar ] = useState(false);
     const navigateToLogin = () =>{
         isLoggedIn ? handleLogout() : navigate('/login', { state: location });
     }
@@ -34,8 +32,26 @@ export const Navbar = () => {
             }
     }
 
+    const [ lastScrollValue, setLastScrollValue ] = useState(0);
+
+    const handleScroll = () => {
+        // if(window.scrollY<lastScrollValue){
+        //     console.log(window.scrollY, lastScrollValue, 'if')
+        //   setShowNavbar(true)
+        // }else{
+        //     console.log(window.scrollY, lastScrollValue, 'else')
+        //     setShowNavbar(false)
+        // }
+        // setLastScrollValue(v => { console.log('inside setter', lastScrollValue, window.scrollY); return window.scrollY })
+    }
+
+    useEffect( () => {
+        window.addEventListener('scroll', handleScroll);
+    }, [] )
+
     return <nav>
-        <div className='search-bar-container flex-center' style={{ display: searchBarDisplay }} > 
+        <div className= {`nav-container ${ showNavbar && 'nav-fixed'}`} >
+        <div className= 'search-bar-container flex-center' style={{ display: searchBarDisplay }} > 
         <input type='text' placeholder='search here' onKeyDown={ handleSearch }  />
         <button className='search-bar-cross-btn' onClick={ hideSearchBar } > X </button>
          </div>
@@ -48,8 +64,9 @@ export const Navbar = () => {
 
         <div className='nav-last-section' >
             <button onClick={ showSearchBar } > Serch </button>
-            <button onClick={ ()=> navigate('/cart', { state: location }) } > Cart </button>
-            <button onClick={ ()=> navigate('/favourites') } > Favourites </button>
+            <button onClick={ ()=> navigate('/cart', { state: location }) } > Cart { (isLoggedIn && userCart.length!==0) && `(${userCart.length})` } </button>
+            <button onClick={ ()=> navigate('/favourites') } > Favourites { (isLoggedIn && userFavouritesList.length!==0) && `(${userFavouritesList.length})` } </button>
+        </div>
         </div>
     </nav>
 }

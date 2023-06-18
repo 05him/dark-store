@@ -1,11 +1,11 @@
-import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../../context/AuthContext/AuthContext'
 
 import logo from '../../../assets/pink skull.svg'
 
 
 export const Logo = () => {
 
-    const navigate = useNavigate();
+    const { navigate } = useAuth()
 
     const navigateToHome = () => navigate('/')
 

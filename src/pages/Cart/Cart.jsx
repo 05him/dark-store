@@ -1,5 +1,3 @@
-import { useNavigate, useLocation } from "react-router-dom";
-
 import { Navbar } from "../components/Navbar/Navbar";
 import { useAuth } from "../../context/AuthContext/AuthContext";
 import { HorizontalCard } from "../components/Cards/HorizontalCard";
@@ -10,9 +8,7 @@ import { Heading } from "../components/Heading/Heading";
 
 export const Cart = () => {
 
-    const navigate = useNavigate();
-    const location = useLocation();
-    const { userData } = useAuth();
+    const { userData, navigate, location } = useAuth();
     const { userCart, isLoggedIn } = userData;
     const { calculateFinalPrice } = useProducts();
         
