@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import { Heading } from "../components/Heading/Heading"
@@ -8,16 +7,18 @@ import { Footer } from "../components/Footer/Footer";
 import openEye from '../../assets/open-eye.svg';
 import closeEye from '../../assets/close-eye.svg';
 import { useToastAndLoader } from "../../context/ToastAndLoaderContext/ToastAndLoaderContext";
+import { useAuth } from "../../context/AuthContext/AuthContext";
 
 export const SignUp = () => {
+
+    const { navigate, location } = useAuth();
+
     const [ passwordType, setPasswordType ] = useState('password');
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ firstName, setFirstName ] = useState('');
     const [ lastName, setLastName ] = useState('');
     const { setToast, setLoader } = useToastAndLoader();
-    const navigate = useNavigate();
-    const location = useLocation();
 
     const handleCreateAccount = async (e) => {
         e.preventDefault();

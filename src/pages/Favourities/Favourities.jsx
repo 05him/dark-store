@@ -1,5 +1,3 @@
-import { useNavigate, useLocation } from "react-router-dom";
-
 import { Navbar } from "../components/Navbar/Navbar";
 import { useAuth } from "../../context/AuthContext/AuthContext";
 import { Footer } from "../components/Footer/Footer";
@@ -10,9 +8,7 @@ import { Heading } from "../components/Heading/Heading";
 
 export const Favourities = () => {
 
-    const navigate = useNavigate();
-    const location = useLocation();
-    const { userData } = useAuth();
+    const { userData, navigate, location } = useAuth();
     const { userFavouritesList, isLoggedIn } = userData;
         
     // const totalPrice = userFavouritesList?.reduce( (total, {price, discount, qty=1}) => total + calculateFinalPrice(price,discount)*qty ,0 );

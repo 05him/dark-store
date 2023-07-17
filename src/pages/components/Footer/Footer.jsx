@@ -1,12 +1,8 @@
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext/AuthContext';
 
 import { Logo } from "../Logo/Logo";
 
 export const Footer = () => {
-
-    const navigate = useNavigate();
-    const location = useLocation();
 
     const navigateToLogin = () =>{
         isLoggedIn ? handleLogout() : navigate('/login', { state: location });
@@ -14,7 +10,7 @@ export const Footer = () => {
 
     const navigateToSignup = () => navigate('/signup');
 
-    const { userData: { isLoggedIn }, handleLogout } = useAuth();
+    const { userData: { isLoggedIn }, handleLogout, navigate, location } = useAuth();
 
     return <footer> 
         <Logo/>

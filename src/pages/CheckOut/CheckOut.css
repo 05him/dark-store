@@ -7,3 +7,48 @@
     padding: 1rem; 
     border: 1px solid white;
 }
+
+.add-address-modal{
+    position: absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    background: rgba(0, 0, 0, 0.577);
+}
+
+.add-address-container{
+    border:1px solid var(--secondary-btn-color);
+    border-radius:10px;
+    width:400px;
+    box-sizing: content-box;
+    padding:1rem 3rem;
+    margin: auto;
+    transform: translateY(10%);
+    background-color: var(--primary-bg-color);
+
+    & input{
+        display: block;
+        width:100%;
+        margin-top:0.4em;
+        background-color: transparent;
+        border:1.5px solid var(--primary-btn-color);
+        outline: none;
+        border-radius: 5px;
+        padding: 0.5em;
+        color: var(--primary-font-color)
+    }
+    & label{
+        font-weight: 500;
+        display: block;
+        margin: 1em 0;
+    }
+}
+
+.address-container{
+    border:1px solid white;
+    padding: 0.5em;
+    
+    & div {
+        margin: 0.4em 0;
+    }
+}

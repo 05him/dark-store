@@ -3,17 +3,15 @@ import { useToastAndLoader } from "../ToastAndLoaderContext/ToastAndLoaderContex
 
 const handleUserData = ( data, action ) => {
     switch(action.type){
-        case 'loginSuccess' : return({ ...data, isLoggedIn: true, firstName: action.userObject.firstName, lastName: action.userObject.lastName, email: action.userObject.email, userCart: action.userObject.cart, userAddressList: action.userObject.addressList, userFavouritesList: action.userObject.favouritesList, authToken: action.token });
+        case 'loginSuccess' : return({ ...data, isLoggedIn: true, firstName: action.userObject.firstName, lastName: action.userObject.lastName, email: action.userObject.email, userCart: action.userObject.cart ?? action.userObject.userCart ?? [], userAddressList: action.userObject.addressList ?? action.userObject.userAddressList ?? [], userFavouritesList: action.userObject.favouritesList ?? action.userObject.userFavouritesList ?? [], authToken: action.token });
 
         case 'updateCart' : return({ ...data, userCart: action.newCart });
 
-        case 'updateQuantity' : return({ ...data, userCart: data.userCart.map( prod => prod._id === action.productId ? ({ ...prod, qty: (prod.qty ?? 1) +1 }) : prod ) });
+        case 'updateFavourities' : return({ ...data, userFavouritesList: action.newList });
+
+        case 'updateAddress' : return({ ...data, userAddressList: action.newList });
 
         case 'logout' : return({ ...data, isLoggedIn: false });
-
-        case 'addFavourite' : return({ ...data, userFavouritesList: [ ...data.userFavouritesList, action.newFavourite ] });
-
-        case 'removeFavourite' : return({ ...data, userFavouritesList: data.userFavouritesList.filter( ({_id}) => _id!==action.deleteId ) });
 
         default: throw Error(`some error in ${action.type}`);
     }
@@ -33,10 +31,7 @@ export const useUserDataReducer = () => {
 
     const updateCartHandler = cart => setUserData({ type: 'updateCart', newCart: cart });
 
-    const handleIncreaseQyantity = givenId => {
-        const { qty, stock_quantity }  = userData.userCart.find(({_id}) => _id === givenId);
-        qty === stock_quantity ? setToast(`Only ${stock_quantity} pieces available`) : setUserData({ type: 'updateQuantity', productId: givenId });
-    };
+    const updateFavouritiesHandler = list => setUserData({ type: 'updateFavourities', newList: list });
 
     const handleLogout = () => {
         setUserData({ type: 'logout' });
@@ -47,15 +42,7 @@ export const useUserDataReducer = () => {
 
     const checkInFavourite = prodId => userData.userFavouritesList.find( ({ _id}) => _id === prodId);
 
-    const favouritiesHandler = prodObj => {
-        if(checkInFavourite(prodObj._id)) {
-             setUserData({ type: 'removeFavourite', deleteId: prodObj._id }) ;
-             setToast(`${prodObj.title} removed from your favourites`, 'success');
-         }else{
-             setUserData({ type: 'addFavourite', newFavourite: prodObj });
-             setToast(`${prodObj.title} added to your favourites`, 'success');
-        }
-    }
+    const updateAddressHandler = list => setUserData({ type: 'updateAddress', newList: list });
 
-    return ({ userData, handleUserLogin, updateCartHandler, checkInCart, handleLogout, favouritiesHandler, checkInFavourite, handleIncreaseQyantity});
+    return ({ userData, handleUserLogin, checkInCart, updateCartHandler, handleLogout, checkInFavourite, updateFavouritiesHandler, updateAddressHandler });
 }

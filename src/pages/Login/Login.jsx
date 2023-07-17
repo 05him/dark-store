@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import { Heading } from '../components/Heading/Heading';
@@ -13,9 +12,7 @@ import closeEye from '../../assets/close-eye.svg';
 export const Login = () => {
 
     const { setToast, isLoading, setLoader } = useToastAndLoader();
-    const { userData, handleUserLogin } = useAuth();
-    const location = useLocation();
-    const navigate = useNavigate();
+    const { userData, handleUserLogin, navigate, location } = useAuth();
 
     const [ passwordType, setPasswordType ] = useState('password');
     const [ email, setEmail ] = useState('');
