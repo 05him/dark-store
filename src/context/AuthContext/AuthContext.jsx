@@ -91,9 +91,9 @@ export const AuthProvider = ({ children }) => {
         }
     }
     
-    useEffect( ()=>{
-        findUserData();
-    },[] )
+    // useEffect( ()=>{
+    //     findUserData();
+    // },[] )
 
     return <AuthContext.Provider value={{ userData, handleUserLogin, handleAddToCart, updateCartHandler, checkInCart, handleLogout, handleAddToFavourities, checkInFavourite, navigate, location, apiHeader, updateAddressHandler }} >
         {children}

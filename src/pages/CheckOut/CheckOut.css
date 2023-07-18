@@ -45,10 +45,64 @@
 }
 
 .address-container{
-    border:1px solid white;
+    border:1px solid var(--secondary-btn-color);
+    border-radius: 10px;;
     padding: 0.5em;
     
     & div {
         margin: 0.4em 0;
     }
+
+    & button{
+        margin: 0.5rem;
+        padding: 0.25rem 0.5rem;
+        border: 2px solid var(--secondary-bg-color);
+        border-radius: 7px;
+        background: none;
+        color: var(--pri)
+    }
+}
+
+.add-address-primary-btn, .place-order-btn{
+    color: var(--primary-font-color);
+    background-color: var(--primary-btn-color);
+}
+
+.add-address-primary-btn, .add-address-secondary-btn, .place-order-btn{
+    padding: 0.5rem;
+    margin:0.5rem;
+    border: none;
+    border-radius: 7px;
+}
+
+.add-address-secondary-btn{
+    color: var(--secondary-font-color);
+    background-color: var(--secondary-btn-color);
+}
+
+.text-align-center{
+    text-align: center;
+}
+
+.add-new-address-btn, .place-order-btn{
+    display: block;
+    margin: 1rem auto;
+    
+}
+
+.checkout-main{
+    display: flex;
+    gap: 2rem;
+    width: 90%;
+}
+
+.summary-container, .saved-address-container{
+    width: 50%;
+}
+
+.saved-address-head, .summary-head{
+    font-size: 30px;
+    font-weight: 500;
+    margin: 1rem;
+    text-align: center;
 }
