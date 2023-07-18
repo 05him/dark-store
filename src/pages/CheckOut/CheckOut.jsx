@@ -5,6 +5,7 @@ import axios from "axios";
 import { useAuth } from "../../context/AuthContext/AuthContext";
 import { useToastAndLoader } from "../../context/ToastAndLoaderContext/ToastAndLoaderContext";
 import { Navbar } from "../components/Navbar/Navbar";
+import { useProducts } from "../../context/ProductsContext";
 import { Footer } from "../components/Footer/Footer";
 import { Heading } from "../components/Heading/Heading";
 import { tr } from "@faker-js/faker";
@@ -24,8 +25,14 @@ export const CheckOut = () => {
     const navigate = useNavigate();
     const [ editAddressInfo, setEditAddressInfo ] = useState(null);
     const [ showModal, setShowModal ] = useState(false);
-    const { userData: { userAddressList }, apiHeader, updateAddressHandler } = useAuth();
+    const [ selectedAddress, setSelectedAddress ] = useState('');
+    const { userData: { userAddressList, userCart }, apiHeader, updateAddressHandler, updateCartHandler } = useAuth();
     const { setToast, setLoader, isLoading } = useToastAndLoader();
+    const { calculateFinalPrice } = useProducts();
+
+    const totalPrice = userCart?.reduce( (total, {price, discount, qty=1}) => total + calculateFinalPrice(price,discount)*qty ,0 );
+    const totalItems = userCart?.length;
+    const totalQuantity = userCart?.reduce( (total,{qty=1}) => total+qty,0 );
 
     const AddressModal = () => {
 
@@ -96,22 +103,27 @@ export const CheckOut = () => {
         <label> City, State <input required type='text' value={ cityState } onChange={ e=>handleInput( 'cityState', e.target.value) } /> </label>
         <label> Pin Code <input required type='number' value={ pinCode } onChange={ e=>handleInput( 'pinCode', e.target.value) } /> </label>
         <label> Phone Number <input required type='number' value={ phoneNumber } onChange={ e=>handleInput( 'phoneNumber', e.target.value) } /> </label>
-        <button onClick={ e => handleAddBtn(e, _id) } > { !editAddressInfo ? 'Add Address' : 'Save Changes'  } </button>
-        <button onClick={ handleCancelClick } > Cancel </button>
+        <button onClick={ e => handleAddBtn(e, _id) } className="add-address-primary-btn" > { !editAddressInfo ? 'Add Address' : 'Save Changes'  } </button>
+        <button onClick={ handleCancelClick } className="add-address-secondary-btn" > Cancel </button>
         </form>
          </div>
          </div>
     }
 
-    // const placeOrder = async() =>{
-    //     setLoader(true);
-    //     const clearCall = await axios.delete('/api/user/cart/empty', { headers: { 'authorization': authToken } });
-    //     updateCartHandler(clearCall.data.cart);
-    //     setToast('order placed successfully', 'success');
-    //     setTimeout(()=> setLoader(true, 'Redirecting....') , 2000 )
-    //     setTimeout(()=> navigate('/'), 4000 )
-    //     setTimeout(()=>setLoader(false), 4000 )
-    // }
+    const placeOrder = async() =>{
+        if(selectedAddress.length===0){
+            setToast('Select a address first', 'warning')
+        }
+        else{
+            setLoader(true);
+            const clearCall = await axios.delete('/api/user/cart/empty', apiHeader);
+            updateCartHandler(clearCall.data.cart);
+            setToast('order placed successfully', 'success');
+            setTimeout(()=> setLoader(true, 'Redirecting....') , 2000 )
+            setTimeout(()=> navigate('/'), 4000 )
+            setTimeout(()=>setLoader(false), 4000 )
+        }
+    }
 
     const handleEdit = async address => {
         setShowModal(true);
@@ -137,8 +149,10 @@ export const CheckOut = () => {
     <Navbar />
     <Heading title={'CheckOut'} />
     <AddressModal />
-    <div>
-    { userAddressList.length===0 && <div> No saved address found </div> }
+    <div className="checkout-main" >
+    <div className="saved-address-container" >
+        <div className="saved-address-head" > Saved Address  </div>
+    { userAddressList.length===0 && <div className="text-align-center" > No saved address found </div> }
     <ul>
         { userAddressList?.map( address => {
             const {_id, addressName, flatNo, area, landmark, cityState, pinCode, phoneNumber} = address;
@@ -148,15 +162,41 @@ export const CheckOut = () => {
             <div> {flatNo},  {area}. <br /> LandMark - {landmark} </div>
             <div> {cityState} </div>
             <div> {pinCode} </div>
-            <button> Use this address </button>
+            <button onClick={ () => setSelectedAddress(address) } > Use this address </button>
             <button onClick={ () => handleEdit(address) } > Edit address </button>
             <button onClick={ () => handleAddressDelete(_id) } > Delete Address </button>
              </li>} ) }
     </ul>
-    <button className="add--new-address-btn" onClick={ () => setShowModal(value => !value) } > Add New Address </button>
+    <button className=" add-address-primary-btn add-new-address-btn " onClick={ () => setShowModal(value => !value) }  > Add New Address </button>
     </div>
-    <div> 
-
+    <div className="summary-container" > 
+        <div className="summary-head" > Summary </div>
+    { userCart.length!==0 &&
+        <div className="carts-details-container" >
+          <div className="cart-details-heading" > cart details </div>
+          <div className="qty-info-container" > <span className="qty-info-heading" > Total Items: {totalItems} </span> <span className="qty-info-heading" > Total Quantity: {totalQuantity} </span> </div>
+          {
+            userCart?.map( ({_id, title, price, discount, qty=1}) => <div key={_id} className="product-desc-container" > <div className="product-desc-title" > { title } </div> <div className="product-quantity-price-container" >  <span className="product-desc-quantity-container" > <span className="product-desc-quantity-heading" > Quantity </span> : <span className="product-desc-quantity"> {qty} </span> </span> <span className="product-desc-price-container" > <span className="product-desc-price-heading">  Price: </span> <span className="product-desc-price" > ₹{ calculateFinalPrice(price,discount)*qty } </span> </span> </div>  </div> )
+          }
+          
+          <div className="total-price-container" > <span className="total-price-heading" > Total price: </span>  <span className="total-price" > ₹{totalPrice} </span> </div>
+          <button onClick={ placeOrder } className="place-order-btn" > Place Order </button>
+          <div>
+            Selected Address: { selectedAddress.length===0 && <div> <i> No address selected </i> </div> }
+            {
+                selectedAddress.length!==0 && <div>
+                
+                    <div className="address-name" > {selectedAddress?.addressName} </div>
+            <div> {selectedAddress?.phoneNumber} </div>
+            <div> {selectedAddress?.flatNo},  {selectedAddress?.area}. <br /> LandMark - {selectedAddress?.landmark} </div>
+            <div> {selectedAddress?.cityState} </div>
+            <div> {selectedAddress?.pinCode} </div>
+                     </div>
+            }
+        </div>
+        </div> }
+        
+    </div>
     </div>
     <Footer />
     </>
